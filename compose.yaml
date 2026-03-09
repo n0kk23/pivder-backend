@@ -7,7 +7,7 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
-      - "127.0.0.1:${POSTGRES_PORT}:5432"
+      - "${POSTGRES_PORT}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -16,6 +16,8 @@ services:
       timeout: 5s
       retries: 5
       start_period: 30s
+    networks:
+      - backend
 
   redis:
     image: redis:7-alpine
@@ -28,7 +30,7 @@ services:
       --save 60 1
       --loglevel warning
     ports:
-      - "127.0.0.1:${REDIS_PORT}:6379"
+      - "${REDIS_PORT}:6379"
     volumes:
       - redis_data:/data
     healthcheck:
@@ -37,9 +39,15 @@ services:
       timeout: 5s
       retries: 5
       start_period: 10s
+    networks:
+      - backend
 
 volumes:
   postgres_data:
     driver: local
   redis_data:
     driver: local
+
+networks:
+  backend:
+    driver: bridge

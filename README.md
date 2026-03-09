@@ -5,7 +5,7 @@
 ![Docker](https://img.shields.io/badge/Docker-compose-2496ED?logo=docker&logoColor=white)
 ![Liquibase](https://img.shields.io/badge/Liquibase-2962FF?logo=liquibase&logoColor=white)
 
-Пивдер - сайт для студенческого сервиса знакомств СПбГУТ. Помогает найти собутыльника поблизости.
+🍺 Пивдер - сайт для студенческого сервиса знакомств СПбГУТ. Помогает найти собутыльника поблизости.
 Разработан в рамках предмета "Основы проектной деятельности"
 
 Реализация Backend части.

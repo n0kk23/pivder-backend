@@ -19,6 +19,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: validate
+    show-sql: true
     open-in-view: false
 
   data:
@@ -47,3 +48,8 @@ logging:
     com.zaxxer.hikari: WARN
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level [%X{traceId},%X{spanId}] %logger{36} - %msg%n"
+
+jwt:
+  secret-key: ${JWT_SECRET_KEY}
+  access-token-expiration-ms: ${JWT_ACCESS_TOKEN_EXPIRATION_MS}
+  refresh-token-expiration-ms: ${JWT_REFRESH_TOKEN_EXPIRATION_MS}
