@@ -53,3 +53,6 @@ jwt:
   secret-key: ${JWT_SECRET_KEY}
   access-token-expiration-ms: ${JWT_ACCESS_TOKEN_EXPIRATION_MS}
   refresh-token-expiration-ms: ${JWT_REFRESH_TOKEN_EXPIRATION_MS}
+
+token:
+  hash-algorithm: ${TOKEN_HASH_ALGORITHM}

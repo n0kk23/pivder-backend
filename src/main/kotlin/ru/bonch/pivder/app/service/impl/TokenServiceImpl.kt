@@ -10,6 +10,7 @@ import ru.bonch.pivder.app.exception.unauthorized.impl.InvalidTokenException
 import ru.bonch.pivder.app.jwt.JwtProvider
 import ru.bonch.pivder.app.repository.RefreshTokenRepository
 import ru.bonch.pivder.app.service.TokenService
+import ru.bonch.pivder.config.TokenHashAlgorithmConfiguration
 import java.security.MessageDigest
 import java.time.OffsetDateTime
 import java.time.ZoneOffset
@@ -18,11 +19,11 @@ import java.util.*
 @Service
 class TokenServiceImpl(
     private val refreshTokenRepository: RefreshTokenRepository,
-    private val jwtProvider: JwtProvider
+    private val jwtProvider: JwtProvider,
+    private val hashAlgorithm: String
 ) : TokenService {
 
     companion object {
-        const val HASH_ALGORITHM: String = "SHA-256"
         const val ACCOUNT_ID_MUST_BE_NOT_NULL = "Account id must be not null"
     }
 
@@ -89,7 +90,7 @@ class TokenServiceImpl(
     }
 
     private fun toHashToken(token: String): String {
-        val bytes = MessageDigest.getInstance(HASH_ALGORITHM).digest(token.toByteArray(Charsets.UTF_8))
+        val bytes = MessageDigest.getInstance(hashAlgorithm).digest(token.toByteArray(Charsets.UTF_8))
 
         return HexFormat.of().formatHex(bytes)
     }
