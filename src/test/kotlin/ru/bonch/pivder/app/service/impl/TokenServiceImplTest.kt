@@ -23,6 +23,7 @@ class TokenServiceImplTest {
     private val userId = UUID.randomUUID()
     private val accessToken = "header.payload.access"
     private val refreshToken = "header.payload.refresh"
+    private val hashAlgorithm = "SHA-256"
 
     private fun buildAccount() = AccountEntity(
         id = userId,
@@ -47,7 +48,7 @@ class TokenServiceImplTest {
     fun setUp() {
         refreshTokenRepository = mock(RefreshTokenRepository::class.java)
         jwtProvider = mock(JwtProvider::class.java)
-        tokenService = TokenServiceImpl(refreshTokenRepository, jwtProvider)
+        tokenService = TokenServiceImpl(refreshTokenRepository, jwtProvider, hashAlgorithm)
     }
 
     @Test

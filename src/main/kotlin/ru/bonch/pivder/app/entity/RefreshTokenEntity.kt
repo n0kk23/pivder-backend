@@ -22,16 +22,16 @@ class RefreshTokenEntity(
 
     @ManyToOne
     @JoinColumn(name = "account_id", nullable = false)
-    var account: AccountEntity?,
+    var account: AccountEntity,
 
     @Column(name = "token_hash", nullable = false, unique = true)
-    var tokenHash: String?,
+    var tokenHash: String,
 
     @Column(name = "is_active", nullable = false)
-    var isActive: Boolean?,
+    var isActive: Boolean,
 
     @Column(name = "expires_at", nullable = false)
-    var expiresAt: OffsetDateTime?,
+    var expiresAt: OffsetDateTime,
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false)

@@ -10,7 +10,6 @@ import ru.bonch.pivder.app.exception.unauthorized.impl.InvalidTokenException
 import ru.bonch.pivder.app.jwt.JwtProvider
 import ru.bonch.pivder.app.repository.RefreshTokenRepository
 import ru.bonch.pivder.app.service.TokenService
-import ru.bonch.pivder.config.TokenHashAlgorithmConfiguration
 import java.security.MessageDigest
 import java.time.OffsetDateTime
 import java.time.ZoneOffset
@@ -66,9 +65,9 @@ class TokenServiceImpl(
             throw InvalidTokenException("Token is invalid")
         }
 
-        if (!refreshTokenEntity.isActive!!) {
+        if (!refreshTokenEntity.isActive) {
             val account = refreshTokenEntity.account
-            invalidateAllAccountTokens(account!!)
+            invalidateAllAccountTokens(account)
 
             throw InvalidTokenException("Token is already used")
         }
@@ -76,7 +75,7 @@ class TokenServiceImpl(
         refreshTokenEntity.isActive = false
         refreshTokenRepository.save(refreshTokenEntity)
 
-        val account = refreshTokenEntity.account!!
+        val account = refreshTokenEntity.account
         val newAccessToken = generateAccessToken(account)
         val newRefreshToken = generateRefreshToken(account)
 
