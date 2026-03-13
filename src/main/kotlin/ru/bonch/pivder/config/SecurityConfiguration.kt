@@ -26,6 +26,7 @@ class SecurityConfiguration(
                 auth
                     .requestMatchers(
                         "/api/v1/auth/**",
+                        "/api/v1/refresh",
                         "/v3/api-docs/**",
                         "/swagger-ui.html/**",
                         "/swagger-ui/**"

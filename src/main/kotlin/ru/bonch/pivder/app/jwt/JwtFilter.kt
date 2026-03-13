@@ -34,6 +34,8 @@ class JwtFilter(
 
             SecurityContextHolder.getContext().authentication = auth
         }
+
+        filterChain.doFilter(request, response)
     }
 
     private fun extractToken(request: HttpServletRequest): String? {

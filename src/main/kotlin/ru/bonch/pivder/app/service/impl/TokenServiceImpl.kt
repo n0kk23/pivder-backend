@@ -54,7 +54,7 @@ class TokenServiceImpl(
         return token
     }
 
-    @Transactional
+    @Transactional(noRollbackFor = [InvalidTokenException::class])
     override fun refreshTokens(refreshToken: String): TokenResponseDto {
         val hashedToken = toHashToken(refreshToken)
 
@@ -67,9 +67,9 @@ class TokenServiceImpl(
 
         if (!refreshTokenEntity.isActive) {
             val account = refreshTokenEntity.account
-            invalidateAllAccountTokens(account)
+            refreshTokenRepository.deactivateAllByAccountId(account.id!!)
 
-            throw InvalidTokenException("Token is already used")
+            throw InvalidTokenException("Invalid token")
         }
 
         refreshTokenEntity.isActive = false
@@ -80,12 +80,6 @@ class TokenServiceImpl(
         val newRefreshToken = generateRefreshToken(account)
 
         return TokenResponseDto(newAccessToken, newRefreshToken)
-    }
-
-    private fun invalidateAllAccountTokens(account: AccountEntity) {
-        val accountId: UUID = requireNotNull(account.id) { ACCOUNT_ID_MUST_BE_NOT_NULL}
-
-        refreshTokenRepository.deactivateAllByAccountId(accountId)
     }
 
     private fun toHashToken(token: String): String {

@@ -5,12 +5,10 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import ru.bonch.pivder.app.command.AccountAuthorizationCommand
 import ru.bonch.pivder.app.command.AccountRegistrationCommand
-import ru.bonch.pivder.app.dto.response.AccountResponseDto
 import ru.bonch.pivder.app.dto.response.TokenResponseDto
 import ru.bonch.pivder.app.entity.AccountEntity
 import ru.bonch.pivder.app.exception.conflict.impl.UsernameIsAlreadyTakenException
 import ru.bonch.pivder.app.exception.unauthorized.impl.BadCredentialsException
-import ru.bonch.pivder.app.mapper.AccountMapper
 import ru.bonch.pivder.app.repository.AccountRepository
 import ru.bonch.pivder.app.service.AuthService
 import ru.bonch.pivder.app.service.TokenService
@@ -19,12 +17,11 @@ import ru.bonch.pivder.app.service.TokenService
 class AuthServiceImpl(
     private val accountRepository: AccountRepository,
     private val passwordEncoder: PasswordEncoder,
-    private val accountMapper: AccountMapper,
     private val tokenService: TokenService,
 ) : AuthService {
 
     @Transactional
-    override fun registration(command: AccountRegistrationCommand): AccountResponseDto {
+    override fun registration(command: AccountRegistrationCommand) {
         if (accountRepository.existsByUsername(command.username)) {
             throw UsernameIsAlreadyTakenException("Username '${command.username}' is already taken")
         }
@@ -34,9 +31,7 @@ class AuthServiceImpl(
             hashPassword = passwordEncoder.encode(command.password),
         )
 
-        val savedAccount = accountRepository.save(account)
-
-        return accountMapper.toResponse(savedAccount)
+        accountRepository.save(account)
     }
 
     @Transactional

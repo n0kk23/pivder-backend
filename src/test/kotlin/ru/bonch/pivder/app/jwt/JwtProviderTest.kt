@@ -195,20 +195,6 @@ class JwtProviderTest {
     }
 
     @Test
-    fun `extractUserIdFromToken should return false for invalid userId`() {
-        // given
-        val userId = UUID.randomUUID()
-        val invalidUserId = UUID.randomUUID();
-        val token = jwtProvider.generateAccessToken(userId)
-
-        // when
-        val result = jwtProvider.extractUserIdFromToken(token)
-
-        // then
-        assertNotEquals(userId, invalidUserId)
-    }
-
-    @Test
     fun `extractUserIdFromToken should throw exception for invalid token`() {
         // given
         val invalidToken = "invalid.token.here"
