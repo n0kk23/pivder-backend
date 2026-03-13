@@ -46,6 +46,7 @@ logging:
     ru.bonch.pivder: DEBUG
     org.hibernate.SQL: WARN
     com.zaxxer.hikari: WARN
+    org.springframework.boot.docker.compose: DEBUG
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level [%X{traceId},%X{spanId}] %logger{36} - %msg%n"
 
