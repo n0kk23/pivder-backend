@@ -41,7 +41,6 @@ class JwtProvider(
             .parseSignedClaims(token)
             .payload
 
-
     private fun generateToken(userId: UUID, expirationMs: Long): String {
         val now = Instant.now()
 

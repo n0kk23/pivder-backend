@@ -10,9 +10,7 @@ class AccountMapper {
     fun toResponse(entity: AccountEntity): AccountResponseDto {
         return AccountResponseDto(
             id = entity.id!!,
-            username = entity.username,
-            createdAt = entity.createdAt!!,
-            updatedAt = entity.updatedAt!!
+            username = entity.username
         )
     }
 

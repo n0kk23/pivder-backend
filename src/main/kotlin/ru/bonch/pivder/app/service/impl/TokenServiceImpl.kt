@@ -69,7 +69,7 @@ class TokenServiceImpl(
             val account = refreshTokenEntity.account
             refreshTokenRepository.deactivateAllByAccountId(account.id!!)
 
-            throw InvalidTokenException("Invalid token")
+            throw InvalidTokenException("Token is invalid")
         }
 
         refreshTokenEntity.isActive = false

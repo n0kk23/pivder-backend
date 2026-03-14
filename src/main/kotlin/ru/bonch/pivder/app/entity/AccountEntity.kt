@@ -34,6 +34,6 @@ class AccountEntity (
     var updatedAt: OffsetDateTime? = null
 ) {
     override fun toString(): String {
-        return "AccountEntity(id: $id, username: $username, hashPassword: $hashPassword, createdAt: $createdAt, updatedAt: $updatedAt"
+        return "AccountEntity(id: $id, username: $username, hashPassword: $hashPassword"
     }
 }

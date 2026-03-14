@@ -3,6 +3,7 @@ package ru.bonch.pivder.app.userdetails
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 import ru.bonch.pivder.app.entity.AccountEntity
+import java.util.*
 
 class UserDetailsImpl(
     private val account: AccountEntity
@@ -17,6 +18,10 @@ class UserDetailsImpl(
 
     override fun getUsername(): String {
         return account.username
+    }
+
+    fun getId(): UUID {
+        return account.id!!
     }
 
 }
